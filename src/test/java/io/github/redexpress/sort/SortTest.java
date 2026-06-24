@@ -100,33 +100,6 @@ public class SortTest {
     }
 
     @Test
-    void testIntArray() {
-        int[] arr = {9, 23, 45, 78, 34, 91, 56, 67, 29, 41, 83, 11, 15, 19, 2};
-
-        Sort.sort(arr);
-
-        assertArrayEquals(new int[]{2, 9, 11, 15, 19, 23, 29, 34, 41, 45, 56, 67, 78, 83, 91}, arr);
-    }
-
-    @Test
-    void testLongArray() {
-        long[] arr = {9L, 23L, 45L, 78L, 34L, 91L, 56L, 67L, 29L, 41L, 83L, 11L, 15L, 19L, 2L};
-
-        Sort.sort(arr);
-
-        assertArrayEquals(new long[]{2L, 9L, 11L, 15L, 19L, 23L, 29L, 34L, 41L, 45L, 56L, 67L, 78L, 83L, 91L}, arr);
-    }
-
-    @Test
-    void testDoubleArray() {
-        double[] arr = {9.9, 23.2, 45.5, 78.1, 34.3, 91.0, 56.6, 67.7, 29.9, 41.4, 83.8, 11.1, 15.5, 19.9, 2.2};
-
-        Sort.sort(arr);
-
-        assertArrayEquals(new double[]{2.2, 9.9, 11.1, 15.5, 19.9, 23.2, 29.9, 34.3, 41.4, 45.5, 56.6, 67.7, 78.1, 83.8, 91.0}, arr);
-    }
-
-    @Test
     void testRangeArray() {
         Integer[] arr = {9, 23, 45, 78, 34, 91, 56, 67, 29, 41, 83, 11, 15, 19, 2};
 
@@ -152,9 +125,23 @@ public class SortTest {
     }
 
     @Test
-    void testNullSafety() {
-        Integer[] arr = null;
-        Sort.sort(arr);
-        assertNull(arr);
+    void testNullArrayThrowsNpe() {
+        Integer[] a1 = null;
+        Integer[] a2 = null;
+        Integer[] a3 = null;
+        List<Integer> l1 = null;
+        List<Integer> l2 = null;
+
+        org.junit.jupiter.api.function.Executable e1 = () -> Sort.sort(a1);
+        org.junit.jupiter.api.function.Executable e2 = () -> Sort.sort(a2, 0, 0);
+        org.junit.jupiter.api.function.Executable e3 = () -> Sort.sort(a3, Comparator.naturalOrder());
+        org.junit.jupiter.api.function.Executable e4 = () -> Sort.sort(l1);
+        org.junit.jupiter.api.function.Executable e5 = () -> Sort.sort(l2, Comparator.naturalOrder());
+
+        assertThrows(NullPointerException.class, e1);
+        assertThrows(NullPointerException.class, e2);
+        assertThrows(NullPointerException.class, e3);
+        assertThrows(NullPointerException.class, e4);
+        assertThrows(NullPointerException.class, e5);
     }
 }

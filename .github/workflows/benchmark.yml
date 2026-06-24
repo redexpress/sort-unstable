@@ -1,4 +1,4 @@
-name: Benchmark
+name: Test
 
 on:
   workflow_dispatch:
@@ -23,12 +23,3 @@ jobs:
 
       - name: Test
         run: mvn -B test
-
-      - name: Run JMH benchmark
-        run: mvn -B test-compile -Pbenchmark exec:exec | tee benchmark.txt
-
-      - name: Upload benchmark result
-        uses: actions/upload-artifact@v4
-        with:
-          name: benchmark-result
-          path: benchmark.txt
